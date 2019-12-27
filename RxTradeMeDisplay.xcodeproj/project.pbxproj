@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5695718523B5A05F000476F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695718423B5A05F000476F5 /* AppDelegate.swift */; };
-		5695718723B5A05F000476F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695718623B5A05F000476F5 /* SceneDelegate.swift */; };
 		5695718923B5A05F000476F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695718823B5A05F000476F5 /* ViewController.swift */; };
 		5695718C23B5A05F000476F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5695718A23B5A05F000476F5 /* Main.storyboard */; };
 		5695718E23B5A061000476F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5695718D23B5A061000476F5 /* Assets.xcassets */; };
@@ -33,7 +32,6 @@
 		5576210E4609C048C70502FB /* Pods-RxTradeMeDisplay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxTradeMeDisplay.release.xcconfig"; path = "Target Support Files/Pods-RxTradeMeDisplay/Pods-RxTradeMeDisplay.release.xcconfig"; sourceTree = "<group>"; };
 		5695718123B5A05F000476F5 /* RxTradeMeDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxTradeMeDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5695718423B5A05F000476F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5695718623B5A05F000476F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5695718823B5A05F000476F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5695718B23B5A05F000476F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5695718D23B5A061000476F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				5695718423B5A05F000476F5 /* AppDelegate.swift */,
-				5695718623B5A05F000476F5 /* SceneDelegate.swift */,
 				5695718823B5A05F000476F5 /* ViewController.swift */,
 				5695718A23B5A05F000476F5 /* Main.storyboard */,
 				5695718D23B5A061000476F5 /* Assets.xcassets */,
@@ -319,7 +316,6 @@
 			files = (
 				5695718923B5A05F000476F5 /* ViewController.swift in Sources */,
 				5695718523B5A05F000476F5 /* AppDelegate.swift in Sources */,
-				5695718723B5A05F000476F5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
