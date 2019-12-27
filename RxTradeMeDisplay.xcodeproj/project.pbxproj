@@ -13,6 +13,8 @@
 		5695718E23B5A061000476F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5695718D23B5A061000476F5 /* Assets.xcassets */; };
 		5695719123B5A061000476F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5695718F23B5A061000476F5 /* LaunchScreen.storyboard */; };
 		5695719C23B5A061000476F5 /* RxTradeMeDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695719B23B5A061000476F5 /* RxTradeMeDisplayTests.swift */; };
+		569571A923B5AEF6000476F5 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571A823B5AEF6000476F5 /* APIService.swift */; };
+		569571AB23B60DAB000476F5 /* AuthPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571AA23B60DAB000476F5 /* AuthPlugin.swift */; };
 		6ACBCB03455A21067E322185 /* Pods_RxTradeMeDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC259A8953865DD626261A2 /* Pods_RxTradeMeDisplay.framework */; };
 		C3CEE5672A14914480579156 /* Pods_RxTradeMeDisplayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7348B45AE9DBCF24A6D3280 /* Pods_RxTradeMeDisplayTests.framework */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,8 @@
 		5695719723B5A061000476F5 /* RxTradeMeDisplayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxTradeMeDisplayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5695719B23B5A061000476F5 /* RxTradeMeDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTradeMeDisplayTests.swift; sourceTree = "<group>"; };
 		5695719D23B5A061000476F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		569571A823B5AEF6000476F5 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		569571AA23B60DAB000476F5 /* AuthPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPlugin.swift; sourceTree = "<group>"; };
 		5AC259A8953865DD626261A2 /* Pods_RxTradeMeDisplay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxTradeMeDisplay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7348B45AE9DBCF24A6D3280 /* Pods_RxTradeMeDisplayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxTradeMeDisplayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E129B55DC4F75FA587E7A827 /* Pods-RxTradeMeDisplayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxTradeMeDisplayTests.release.xcconfig"; path = "Target Support Files/Pods-RxTradeMeDisplayTests/Pods-RxTradeMeDisplayTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 		5695718323B5A05F000476F5 /* RxTradeMeDisplay */ = {
 			isa = PBXGroup;
 			children = (
+				569571A723B5AE93000476F5 /* Services */,
 				5695718423B5A05F000476F5 /* AppDelegate.swift */,
 				5695718823B5A05F000476F5 /* ViewController.swift */,
 				5695718A23B5A05F000476F5 /* Main.storyboard */,
@@ -106,6 +111,15 @@
 				5695719D23B5A061000476F5 /* Info.plist */,
 			);
 			path = RxTradeMeDisplayTests;
+			sourceTree = "<group>";
+		};
+		569571A723B5AE93000476F5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				569571A823B5AEF6000476F5 /* APIService.swift */,
+				569571AA23B60DAB000476F5 /* AuthPlugin.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		57DAD81FAD28C6F8617D4C67 /* Pods */ = {
@@ -314,7 +328,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				569571AB23B60DAB000476F5 /* AuthPlugin.swift in Sources */,
 				5695718923B5A05F000476F5 /* ViewController.swift in Sources */,
+				569571A923B5AEF6000476F5 /* APIService.swift in Sources */,
 				5695718523B5A05F000476F5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
