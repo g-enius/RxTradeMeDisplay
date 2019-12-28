@@ -9,7 +9,7 @@
 import Foundation
 import Moya
 
-struct AuthPlugin: PluginType {
+struct CustomizedAuthPlugin: PluginType {
     let OAuthBlock:() -> String?
     
     func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
