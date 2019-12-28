@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 plugins: [
                     NetworkLoggerPlugin(),
                     CustomizedAuthPlugin(OAuthBlock: {
-                        return "OAuth oauth_consumer_key=\(consumerKey), oauth_signature_method=PLAINTEXT, oauth_signature=\(consumerSecret)%%26"
+                        return "OAuth oauth_consumer_key=\(consumerKey), oauth_signature_method=PLAINTEXT, oauth_signature=\(consumerSecret)&"
                     })
             ])
             

@@ -27,6 +27,7 @@
 		569571C823B6260C000476F5 /* Scene+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571C723B6260C000476F5 /* Scene+ViewController.swift */; };
 		569571CA23B62703000476F5 /* BindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571C923B62703000476F5 /* BindableType.swift */; };
 		569571CD23B6399C000476F5 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571CC23B6399C000476F5 /* Category.swift */; };
+		569571CF23B70358000476F5 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571CE23B70358000476F5 /* Listing.swift */; };
 		6ACBCB03455A21067E322185 /* Pods_RxTradeMeDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC259A8953865DD626261A2 /* Pods_RxTradeMeDisplay.framework */; };
 		C3CEE5672A14914480579156 /* Pods_RxTradeMeDisplayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7348B45AE9DBCF24A6D3280 /* Pods_RxTradeMeDisplayTests.framework */; };
 /* End PBXBuildFile section */
@@ -68,6 +69,7 @@
 		569571C723B6260C000476F5 /* Scene+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scene+ViewController.swift"; sourceTree = "<group>"; };
 		569571C923B62703000476F5 /* BindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableType.swift; sourceTree = "<group>"; };
 		569571CC23B6399C000476F5 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		569571CE23B70358000476F5 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		5AC259A8953865DD626261A2 /* Pods_RxTradeMeDisplay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxTradeMeDisplay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7348B45AE9DBCF24A6D3280 /* Pods_RxTradeMeDisplayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxTradeMeDisplayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E129B55DC4F75FA587E7A827 /* Pods-RxTradeMeDisplayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxTradeMeDisplayTests.release.xcconfig"; path = "Target Support Files/Pods-RxTradeMeDisplayTests/Pods-RxTradeMeDisplayTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				569571CC23B6399C000476F5 /* Category.swift */,
+				569571CE23B70358000476F5 /* Listing.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				569571A923B5AEF6000476F5 /* APIService.swift in Sources */,
 				569571CA23B62703000476F5 /* BindableType.swift in Sources */,
 				569571C223B624BC000476F5 /* SceneTransitionType.swift in Sources */,
+				569571CF23B70358000476F5 /* Listing.swift in Sources */,
 				569571C023B623C9000476F5 /* DetailViewModel.swift in Sources */,
 				569571CD23B6399C000476F5 /* Category.swift in Sources */,
 				569571C423B62581000476F5 /* SceneCoordinatorType.swift in Sources */,

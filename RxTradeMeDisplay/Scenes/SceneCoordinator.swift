@@ -12,11 +12,11 @@ import RxCocoa
 
 class SceneCoordinator: SceneCoordinatorType {
   fileprivate var window: UIWindow
-  fileprivate var currentViewController: UIViewController
-
+//  fileprivate var currentViewController: UIViewController
+    
   required init(window: UIWindow) {
     self.window = window
-    currentViewController = window.rootViewController!
+//    currentViewController = window.rootViewController!
   }
 
   static func actualViewController(for viewController: UIViewController) -> UIViewController {
@@ -27,6 +27,18 @@ class SceneCoordinator: SceneCoordinatorType {
     }
   }
 
+   static func topMostViewController() -> UIViewController! {
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            return topController
+        }
+        
+        return nil
+    }
+    
+    // Note: It’s important that you always call the scene coordinator’s transition(to:type:) and pop() functions to transition between scenes, as the coordinator needs to keep track of which view controller is frontmost, particularly when presenting scenes modally. Do not use automatic segues    
   @discardableResult
   func transition(to scene: Scene, type: SceneTransitionType) -> Completable {
     let subject = PublishSubject<Void>()
@@ -34,14 +46,14 @@ class SceneCoordinator: SceneCoordinatorType {
     let viewController = scene.instantiateViewController()
     switch type {
     case .root:
-        currentViewController = SceneCoordinator.actualViewController(for: viewController)
+//        currentViewController = SceneCoordinator.actualViewController(for: viewController)
         window.rootViewController = viewController
         
         handleSplitVC(splitVC: viewController as! UISplitViewController)
         subject.onCompleted()
         
     case .push:
-        guard let navigationController = currentViewController.navigationController else {
+        guard let navigationController = SceneCoordinator.topMostViewController().navigationController else {
             fatalError("Can't push a view controller without a current navigation controller")
         }
         // one-off subscription to be notified when push complete
@@ -52,30 +64,34 @@ class SceneCoordinator: SceneCoordinatorType {
         
         //5) Scene Coordinator pushs/presents second VC
         navigationController.pushViewController(viewController, animated: true)
-        currentViewController = SceneCoordinator.actualViewController(for: viewController)
+//        currentViewController = SceneCoordinator.actualViewController(for: viewController)
         
     case .showDetail:
-        #warning("need to adapt")
-        guard let navigationController = currentViewController.navigationController else {
-            fatalError("Can't push a view controller without a current navigation controller")
+        guard SceneCoordinator.topMostViewController().isKind(of: UISplitViewController.self),
+            let detailVC = (SceneCoordinator.topMostViewController() as! UISplitViewController).viewControllers.last,
+            detailVC.isKind(of: UINavigationController.self) else {
+            fatalError("Can't show detail view controller withouth a detail view controller")
         }
+        
+        let detailNavi = detailVC as! UINavigationController
+        
         // one-off subscription to be notified when push complete
-        _ = navigationController.rx
+        _ = detailNavi.rx
         .didShow
         .map { _ -> Void in }
         .bind(to: subject)
         
         //5) Scene Coordinator pushs/presents second VC
-        navigationController.pushViewController(viewController, animated: true)
-        currentViewController = SceneCoordinator.actualViewController(for: viewController)
-        
+        #warning("should be show detail")
+        detailNavi.pushViewController(viewController, animated: true)
+//        currentViewController = SceneCoordinator.actualViewController(for: viewController)
         
     case .modal:
-        currentViewController.present(viewController, animated: true) {
+        SceneCoordinator.topMostViewController().present(viewController, animated: true) {
             subject.onCompleted()
         }
         
-        currentViewController = SceneCoordinator.actualViewController(for: viewController)
+//        currentViewController = SceneCoordinator.actualViewController(for: viewController)
     }
     
     return subject.asObservable()
@@ -87,13 +103,13 @@ class SceneCoordinator: SceneCoordinatorType {
   func pop(animated: Bool) -> Completable {
     let subject = PublishSubject<Void>()
     
-    if let presenter = currentViewController.presentingViewController {
+    if let _ = SceneCoordinator.topMostViewController().presentingViewController {
         // dismiss a modal controller
-        currentViewController.dismiss(animated: animated) {
-            self.currentViewController = SceneCoordinator.actualViewController(for: presenter)
+        SceneCoordinator.topMostViewController().dismiss(animated: animated) {
+//            self.currentViewController = SceneCoordinator.actualViewController(for: presenter)
             subject.onCompleted()
         }
-    } else if let navigationController = currentViewController.navigationController {
+    } else if let navigationController = SceneCoordinator.topMostViewController().navigationController {
         // navigate up the stack
         // one-off subscription to be notified when pop complete
         
@@ -104,12 +120,12 @@ class SceneCoordinator: SceneCoordinatorType {
         .bind(to: subject)
         
         guard navigationController.popViewController(animated: animated) != nil else {
-            fatalError("can't navigate back from \(currentViewController)")
+            fatalError("can't navigate back from \(SceneCoordinator.topMostViewController())")
         }
         
-        currentViewController = SceneCoordinator.actualViewController(for: navigationController.viewControllers.last!)
+//        currentViewController = SceneCoordinator.actualViewController(for: navigationController.viewControllers.last!)
     } else {
-        fatalError("Not a modal, no navigation controller: can't navigation back from \(currentViewController)")
+        fatalError("Not a modal, no navigation controller: can't navigation back from \(SceneCoordinator.topMostViewController())")
     }
 
     return subject.asObservable()

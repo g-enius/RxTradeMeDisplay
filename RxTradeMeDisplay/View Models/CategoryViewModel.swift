@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import Moya
 import SwiftyJSON
+import Action
 
 struct CategoryViewModel {
     let sceneCoordinator: SceneCoordinatorType
@@ -44,4 +45,20 @@ struct CategoryViewModel {
             }
             .asDriver(onErrorJustReturn: [])
     }()
+    
+    // View controllers shouldn’t initiate the transition to another scene; this is the domain of the business logic running in the view model.
+    // Note: Since self is a struct, the action gets its own “copy” of the struct (optimized by Swift to being just a reference), and there is no circular reference - no risk of leaking memory! That's why you don't see [weak self] or [unowned self] here, which don't apply to value types.
+
+    lazy var clickCategoryAction: Action<Category, Never> = { this in
+        return Action { category -> Observable<Never> in
+            let lisingViewModel = ListingViewModel(sceneCoordinator: this.sceneCoordinator,
+                                                   service: this.service,
+                                                   category: category)
+            
+            return this.sceneCoordinator
+                .transition(to: .listing(lisingViewModel), type: .showDetail)
+                .asObservable()
+        }
+    }(self)
+    
 }

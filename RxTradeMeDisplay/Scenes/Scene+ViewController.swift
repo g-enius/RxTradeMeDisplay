@@ -20,7 +20,8 @@ extension Scene {
         return splitVC
         
     case .listing(let viewModel):
-        var vc = storyboard.instantiateViewController(withIdentifier: "Listing") as! ListingTableViewController
+        let navi = storyboard.instantiateViewController(withIdentifier: "Listing") as! UINavigationController
+        var vc = navi.topViewController as! ListingTableViewController
         //4) Scene Coordinator binds second VC and VM together
         vc.bindViewModel(to: viewModel)
         return vc

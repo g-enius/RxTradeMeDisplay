@@ -11,7 +11,7 @@ import Moya
 
 enum APIService {
     case categories
-    case search(category: String, searchText: String, rows: String)
+    case search(category: String, searchText: String? = nil, rows: String)
     case listingDetails(listingID: String)
 }
 
@@ -30,7 +30,7 @@ extension APIService: AuthorizedTargetType {
             return "/Categories/0.json"
             
         case .search:
-            return "General.json"
+            return "Search/General.json"
             
         case .listingDetails(let listingID):
             return "\(listingID).json"
@@ -61,9 +61,16 @@ extension APIService: AuthorizedTargetType {
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         
         case .search(let category, let searchText, let rows):
-            let parameters = ["category": category,
-                              "search_string": searchText,
-                              "rows": rows]
+            let parameters: [String: String]
+            if let searchText = searchText {
+                parameters = ["category": category,
+                "search_string": searchText,
+                "rows": rows]
+            } else {
+                parameters = ["category": category,
+                "rows": rows]
+            }
+            
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
             
         case .listingDetails(let listingID):
