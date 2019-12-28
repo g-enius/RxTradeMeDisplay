@@ -72,8 +72,7 @@ class RxTradeMeDisplayTests: XCTestCase {
         
         let sceneCoordinator = SceneCoordinator(window: UIWindow(frame: UIScreen.main.bounds))
         var categoryViewModel = CategoryViewModel(sceneCoordinator: sceneCoordinator, service: service)
-        
-        expect(categoryViewModel.categories.asObservable().toBlocking(timeout: 3).firstOrNil()) != nil
+        expect(categoryViewModel.categories.asObservable().toBlocking(timeout: 3).firstOrNil()).toNot(beNil())
     }
 
     func testPerformanceExample() {
