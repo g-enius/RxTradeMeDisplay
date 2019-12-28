@@ -13,14 +13,12 @@ import Action
 
 
 class ListingTableViewController: UITableViewController, BindableType {
-    //    That ! in the protocol is due to “TaskViewControler” and “EditTaskViewController” also define the viewModel as a var !. That’s a “have-to-do” as there are no inits there.
     var viewModel: ListingViewModel!
     private let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = viewModel.category.name
+        title = viewModel?.category?.name ?? "Listings"
     }
     
     func bindViewModel() {

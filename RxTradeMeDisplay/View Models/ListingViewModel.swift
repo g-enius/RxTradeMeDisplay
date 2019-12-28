@@ -16,7 +16,7 @@ import SwiftyJSON
 struct ListingViewModel {
     let sceneCoordinator: SceneCoordinatorType
     let service: MoyaProvider<APIService>
-    let category: Category
+    let category: Category?
     
     // MARK: INIT
     init(sceneCoordinator: SceneCoordinatorType, service: MoyaProvider<APIService>, category: Category) {
@@ -28,7 +28,7 @@ struct ListingViewModel {
     // MARK: OUTPUT
     lazy var listings: Driver<[Listing]>! = {
         return self.service.rx
-            .request(.search(category: self.category.number!, rows: "20"))
+            .request(.search(category: self.category!.number!, rows: "20"))
             .filter(statusCode: 200)
             .retry(1)
             .map { (response: Response) -> [Listing] in

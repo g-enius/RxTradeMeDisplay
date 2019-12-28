@@ -12,33 +12,11 @@ import RxCocoa
 
 class SceneCoordinator: SceneCoordinatorType {
   fileprivate var window: UIWindow
-//  fileprivate var currentViewController: UIViewController
     
   required init(window: UIWindow) {
     self.window = window
-//    currentViewController = window.rootViewController!
   }
-
-  static func actualViewController(for viewController: UIViewController) -> UIViewController {
-    if let navigationController = viewController as? UINavigationController {
-      return navigationController.viewControllers.first!
-    } else {
-      return viewController
-    }
-  }
-
-   static func topMostViewController() -> UIViewController! {
-        if var topController = UIApplication.shared.keyWindow?.rootViewController {
-            while let presentedViewController = topController.presentedViewController {
-                topController = presentedViewController
-            }
-            return topController
-        }
-        
-        return nil
-    }
     
-    // Note: It’s important that you always call the scene coordinator’s transition(to:type:) and pop() functions to transition between scenes, as the coordinator needs to keep track of which view controller is frontmost, particularly when presenting scenes modally. Do not use automatic segues    
   @discardableResult
   func transition(to scene: Scene, type: SceneTransitionType) -> Completable {
     let subject = PublishSubject<Void>()
@@ -46,7 +24,6 @@ class SceneCoordinator: SceneCoordinatorType {
     let viewController = scene.instantiateViewController()
     switch type {
     case .root:
-//        currentViewController = SceneCoordinator.actualViewController(for: viewController)
         window.rootViewController = viewController
         
         handleSplitVC(splitVC: viewController as! UISplitViewController)
@@ -64,34 +41,26 @@ class SceneCoordinator: SceneCoordinatorType {
         
         //5) Scene Coordinator pushs/presents second VC
         navigationController.pushViewController(viewController, animated: true)
-//        currentViewController = SceneCoordinator.actualViewController(for: viewController)
         
     case .showDetail:
-        guard SceneCoordinator.topMostViewController().isKind(of: UISplitViewController.self),
-            let detailVC = (SceneCoordinator.topMostViewController() as! UISplitViewController).viewControllers.last,
-            detailVC.isKind(of: UINavigationController.self) else {
-            fatalError("Can't show detail view controller withouth a detail view controller")
+        let splitVC = window.rootViewController as! UISplitViewController
+        guard let navigationController = viewController.navigationController else {
+            fatalError("Can't show detail a view controller without a current navigation controller")
         }
         
-        let detailNavi = detailVC as! UINavigationController
-        
         // one-off subscription to be notified when push complete
-        _ = detailNavi.rx
+        _ = navigationController.rx
         .didShow
         .map { _ -> Void in }
         .bind(to: subject)
         
-        //5) Scene Coordinator pushs/presents second VC
-        #warning("should be show detail")
-        detailNavi.pushViewController(viewController, animated: true)
-//        currentViewController = SceneCoordinator.actualViewController(for: viewController)
+        splitVC.showDetailViewController(navigationController, sender: self)
+        handleSplitVC(splitVC: splitVC)
         
     case .modal:
         SceneCoordinator.topMostViewController().present(viewController, animated: true) {
             subject.onCompleted()
         }
-        
-//        currentViewController = SceneCoordinator.actualViewController(for: viewController)
     }
     
     return subject.asObservable()
@@ -106,7 +75,6 @@ class SceneCoordinator: SceneCoordinatorType {
     if let _ = SceneCoordinator.topMostViewController().presentingViewController {
         // dismiss a modal controller
         SceneCoordinator.topMostViewController().dismiss(animated: animated) {
-//            self.currentViewController = SceneCoordinator.actualViewController(for: presenter)
             subject.onCompleted()
         }
     } else if let navigationController = SceneCoordinator.topMostViewController().navigationController {
@@ -120,12 +88,10 @@ class SceneCoordinator: SceneCoordinatorType {
         .bind(to: subject)
         
         guard navigationController.popViewController(animated: animated) != nil else {
-            fatalError("can't navigate back from \(SceneCoordinator.topMostViewController())")
+            fatalError("can't navigate back from \(String(describing: SceneCoordinator.topMostViewController()))")
         }
-        
-//        currentViewController = SceneCoordinator.actualViewController(for: navigationController.viewControllers.last!)
     } else {
-        fatalError("Not a modal, no navigation controller: can't navigation back from \(SceneCoordinator.topMostViewController())")
+        fatalError("Not a modal, no navigation controller: can't navigation back from \(String(describing: SceneCoordinator.topMostViewController()))")
     }
 
     return subject.asObservable()
@@ -136,25 +102,35 @@ class SceneCoordinator: SceneCoordinatorType {
     private func handleSplitVC(splitVC: UISplitViewController) {
         let listingNavi = splitVC.viewControllers.last as! UINavigationController
         listingNavi.topViewController?.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem
+        listingNavi.topViewController?.navigationItem.leftItemsSupplementBackButton = true
+
         splitVC.delegate = self
     }
+    
+    static func topMostViewController() -> UIViewController! {
+         if var topController = UIApplication.shared.keyWindow?.rootViewController {
+             //may add UITabBarController
+             if let splitVC = topController.splitViewController {
+                 topController = splitVC.viewControllers.last!
+             }
+             
+             if let presentedViewController = topController.presentedViewController {
+                 topController = presentedViewController
+             }
+             
+             if topController.isKind(of: UINavigationController.self) {
+                 return (topController as! UINavigationController).topViewController
+             }
+             
+             return topController
+         }
+         
+         return nil
+     }
 }
 
 extension SceneCoordinator: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        if secondaryViewController.isKind(of: UINavigationController.self) {
-            let topVC = (secondaryViewController as! UINavigationController).topViewController!
-            if topVC.isKind(of: ListingTableViewController.self) {
-//                if(listTableViewController.dataSource.count > 0) {
-//                    return NO;
-//                }
-            } else if topVC.isKind(of: DetailTableViewController.self) {
-//                if(listDetailTableViewController.detail) {
-//                    return NO;
-//                }
-            }
-        }
-        
         return true
     }
 }
