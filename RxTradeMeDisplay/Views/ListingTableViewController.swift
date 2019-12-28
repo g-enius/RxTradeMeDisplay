@@ -13,12 +13,22 @@ import Action
 
 
 class ListingTableViewController: UITableViewController, BindableType {
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
     var viewModel: ListingViewModel!
     private let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = viewModel?.category?.name ?? "Listings"
+        
+        activityIndicatorView.hidesWhenStopped = true
+        if let name = viewModel?.category?.name {
+            activityIndicatorView.startAnimating()
+            title = name
+        } else {
+            activityIndicatorView.stopAnimating()
+            title = "Listings"
+        }
     }
     
     func bindViewModel() {
@@ -27,6 +37,10 @@ class ListingTableViewController: UITableViewController, BindableType {
         tableView.delegate = nil
         
         viewModel.listings
+            //can also done by another observable
+            .do(onNext: { [unowned self] _ in
+                self.activityIndicatorView.stopAnimating()
+            })
             .drive(tableView.rx.items) { (tableView, row, listing) in
                 let cell = tableView.dequeueReusableCell(withIdentifier: "listingCell")!
                 cell.textLabel?.text = listing.title
