@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Action
+
 
 
 class ListingTableViewController: UITableViewController, BindableType {
@@ -48,5 +48,15 @@ class ListingTableViewController: UITableViewController, BindableType {
                 return cell
         }
         .disposed(by: bag)
+        
+        tableView.rx.itemSelected
+            .do(onNext: { [unowned self] indexPath in
+                self.tableView.deselectRow(at: indexPath, animated: false)
+            })
+            .map { [unowned self] indexPath -> Listing in
+                try! self.tableView.rx.model(at: indexPath)
+        }
+        .subscribe(viewModel.clickListingAction.inputs)
+        .disposed(by:bag)
     }
 }

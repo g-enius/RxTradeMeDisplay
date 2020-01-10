@@ -28,6 +28,7 @@
 		569571CA23B62703000476F5 /* BindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571C923B62703000476F5 /* BindableType.swift */; };
 		569571CD23B6399C000476F5 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571CC23B6399C000476F5 /* Category.swift */; };
 		569571CF23B70358000476F5 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569571CE23B70358000476F5 /* Listing.swift */; };
+		56ED1D7023C7C3DC006F90A0 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ED1D6F23C7C3DC006F90A0 /* Details.swift */; };
 		6ACBCB03455A21067E322185 /* Pods_RxTradeMeDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC259A8953865DD626261A2 /* Pods_RxTradeMeDisplay.framework */; };
 		C3CEE5672A14914480579156 /* Pods_RxTradeMeDisplayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7348B45AE9DBCF24A6D3280 /* Pods_RxTradeMeDisplayTests.framework */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,7 @@
 		569571C923B62703000476F5 /* BindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableType.swift; sourceTree = "<group>"; };
 		569571CC23B6399C000476F5 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		569571CE23B70358000476F5 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
+		56ED1D6F23C7C3DC006F90A0 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 		5AC259A8953865DD626261A2 /* Pods_RxTradeMeDisplay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxTradeMeDisplay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7348B45AE9DBCF24A6D3280 /* Pods_RxTradeMeDisplayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxTradeMeDisplayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E129B55DC4F75FA587E7A827 /* Pods-RxTradeMeDisplayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxTradeMeDisplayTests.release.xcconfig"; path = "Target Support Files/Pods-RxTradeMeDisplayTests/Pods-RxTradeMeDisplayTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				569571CC23B6399C000476F5 /* Category.swift */,
 				569571CE23B70358000476F5 /* Listing.swift */,
+				56ED1D6F23C7C3DC006F90A0 /* Details.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				569571BC23B623B1000476F5 /* CategoryViewModel.swift in Sources */,
 				569571BE23B623BE000476F5 /* ListingViewModel.swift in Sources */,
 				569571BA23B62344000476F5 /* Scene.swift in Sources */,
+				56ED1D7023C7C3DC006F90A0 /* Details.swift in Sources */,
 				569571B323B6205C000476F5 /* ListingTableViewController.swift in Sources */,
 				569571B123B6204B000476F5 /* CategoryTableViewController.swift in Sources */,
 				569571C623B625D3000476F5 /* SceneCoordinator.swift in Sources */,

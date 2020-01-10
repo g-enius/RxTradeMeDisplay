@@ -110,10 +110,10 @@ class SceneCoordinator: SceneCoordinatorType {
     static func topMostViewController() -> UIViewController! {
          if var topController = UIApplication.shared.keyWindow?.rootViewController {
              //may add UITabBarController
-             if let splitVC = topController.splitViewController {
-                 topController = splitVC.viewControllers.last!
+            if topController.isKind(of: UISplitViewController.self) {
+                 topController = (topController as! UISplitViewController).viewControllers.last!
              }
-             
+            
              if let presentedViewController = topController.presentedViewController {
                  topController = presentedViewController
              }

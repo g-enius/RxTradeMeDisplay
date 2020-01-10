@@ -33,7 +33,7 @@ extension APIService: AuthorizedTargetType {
             return "Search/General.json"
             
         case .listingDetails(let listingID):
-            return "\(listingID).json"
+            return "Listings/\(listingID).json"
         }
     }
     

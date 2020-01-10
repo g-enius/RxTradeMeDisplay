@@ -50,4 +50,17 @@ struct ListingViewModel {
         }
         .asDriver(onErrorJustReturn: [])
     }()
+    
+    
+    lazy var clickListingAction: Action<Listing, Never> = { this in
+        return Action { listing -> Observable<Never> in
+            let detailViewModel = DetailViewModel(sceneCoordicator: this.sceneCoordinator,
+                                                  service: this.service,
+                                                  listing: listing)
+            
+            return this.sceneCoordinator
+                .transition(to: .detail(detailViewModel), type: .push)
+                .asObservable()
+        }
+    }(self)
 }
