@@ -29,6 +29,25 @@ class DetailTableViewController: UIViewController, BindableType {
         viewModel.details
             .drive(onNext: { detail in
                 self.bodyLabel.text = detail?.body
+                
+                if let urlString = detail?.thumbnail,
+                    let url = URL(string: urlString) {
+                    
+                    DispatchQueue.global().async {
+                        let task = URLSession.shared.dataTask(with: url) { [weak self] (data, res, err) in
+                            DispatchQueue.main.async {
+                                guard let data = data else {
+                                     return
+                                }
+                               
+                                let image = UIImage(data: data)
+                                self?.imageView.image = image
+                            }
+                           
+                        }
+                        task.resume()
+                    }
+                }
             })
             .disposed(by: bag)
     }
