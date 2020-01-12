@@ -33,14 +33,17 @@ struct DetailViewModel {
             .filter(statusCode: 200)
             .retry(1)
             .map { (response: Response) -> Details? in
-                let listingID = try JSON(data: response.data)["ListingId"].stringValue
-                let title = try JSON(data: response.data)["Title"].stringValue
-                let body = try JSON(data: response.data)["Body"].stringValue
-                if let photo = try JSON(data: response.data)["Photos"].arrayValue.first {
-                    let thumbnail = photo["Value"]["Thumbnail"].stringValue
-                    return Details(listingID:listingID, title: title, thumbnail: thumbnail, body: body)
+                let details = try JSON(data: response.data)
+                let listingID = details["ListingId"].stringValue
+                let title = details["Title"].stringValue
+                let body = details["Body"].stringValue
+                
+                var thumbnail = ""
+                if let photo = details["Photos"].arrayValue.first {
+                    thumbnail = photo["Value"]["Thumbnail"].stringValue
                 }
-                return nil
+                
+                return Details(listingID:listingID, title: title, thumbnail: thumbnail, body: body)
         }
         .asDriver(onErrorJustReturn: nil)
     }()
